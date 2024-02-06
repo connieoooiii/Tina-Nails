@@ -1,10 +1,11 @@
 import Layout from "@/components/Layout";
+import ProductForm from "@/components/ProductForm";
 import ProductFrom from "@/components/ProductForm";
 
 export default function NewProduct() {
   return (
     <Layout>
-      <ProductFrom />
+      <ProductForm />
     </Layout>
   );
 }

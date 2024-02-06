@@ -4,10 +4,14 @@ import {useRouter} from "next/router";
 import {useState} from "react";
 import {useEffect} from "react";
 
-export default function ProductFrom() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+export default function ProductForm({
+  title: existingTitle,
+  description: existingDescription,
+  price: existingPrice,
+}) {
+  const [title, setTitle] = useState(existingTitle || "");
+  const [description, setDescription] = useState(existingDescription || "");
+  const [price, setPrice] = useState(existingPrice || "");
   const [goToProducts, setGoToProducts] = useState(false);
   const router = useRouter();
   async function createProduct(e) {
