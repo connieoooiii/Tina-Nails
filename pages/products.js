@@ -48,7 +48,7 @@ export default function Products() {
                   </svg>
                   Edit
                 </Link>
-                {/* <Link href={}></Link> */}
+                <Link href={"/products/delete/" + product._id}>Delete</Link>
               </td>
             </tr>
           ))}
