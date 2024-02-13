@@ -23,9 +23,12 @@ export default function DeleteProductPage() {
   return (
     <Layout>
       <h1> Do you really want to delete &nbsp;"{productInfo?.title}"?</h1>
-
-      <button>Yes</button>
-      <button onClick={goBack}>No</button>
+      <div className="flex gap-2">
+        <button className="btn-red">Yes</button>
+        <button onClick={goBack} className="btn-default">
+          No
+        </button>
+      </div>
     </Layout>
   );
 }
