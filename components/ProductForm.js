@@ -32,6 +32,15 @@ export default function ProductForm({
   if (goToProducts) {
     router.push("/products");
   }
+
+  function uploadImages(e) {
+    const files = e.target?.files;
+    if (files?.length > 0) {
+      const data = new FormData();
+      files.forEach((file) => data.append("file", file));
+      axios.post("/api/upload");
+    }
+  }
   return (
     <form onSubmit={saveProduct}>
       <label>Product Name</label>
@@ -43,7 +52,7 @@ export default function ProductForm({
       />
       <label>Photos</label>
       <div className="mb-2">
-        <button className="w-24 h-24  text-center flex  items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
+        <label className="w-24 h-24  text-center flex  items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -59,7 +68,8 @@ export default function ProductForm({
             />
           </svg>
           <div>Upload</div>
-        </button>
+          <input type="file" className="hidden" onChange={uploadImages} />
+        </label>
         {!images?.length && <div>No photos in this products</div>}
       </div>
       <label>Description</label>
