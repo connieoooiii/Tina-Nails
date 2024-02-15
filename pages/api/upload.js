@@ -1,6 +1,7 @@
 import multiparty from "multiparty";
 import {PutObjectCommand, S3Client} from "@aws-sdk/client-s3";
-import fs from "fs";
+import fs, {linkSync} from "fs";
+import mime from "mime-types";
 const bucketName = "tina-nails";
 
 export default async function handle(req, res) {
@@ -19,6 +20,7 @@ export default async function handle(req, res) {
       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
     },
   });
+  const links = [];
 
   for (const file of files.file) {
     const ext = file.originalFilename.split(".").pop();
@@ -30,12 +32,14 @@ export default async function handle(req, res) {
         Key: newFilename,
         Body: fs.readFileSync(file.path),
         ACL: "public-read",
-        ContentType: "",
+        ContentType: mime.lookup(file.path),
       })
     );
+    const link = `https://${bucketName}.s3.amazonaws.com/${newFilename}`;
+    links.push(link);
   }
 
-  return res.json("ok");
+  return res.json({links});
 }
 
 export const config = {
